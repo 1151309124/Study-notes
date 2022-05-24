@@ -1,23 +1,32 @@
 /*
  * @Author: 1151309124 115130924@qq.com
- * @Date: 2022-05-06 19:52:36
+ * @Date: 2022-05-10 11:57:32
  * @LastEditors: 1151309124 115130924@qq.com
- * @LastEditTime: 2022-05-10 13:56:55
- * @FilePath: \leetcodee:\vs CODE\midway\todo-list\src\controller\api.ts
+ * @LastEditTime: 2022-05-24 00:16:18
+ * @FilePath: \leetcodee:\vs CODE\笔记\midway\todo-list\src\controller\api.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
-import { Inject, Controller, Post, Get, Provide, Query } from '@midwayjs/decorator';
+// controller
+
+import { Inject, Controller, Post, Del, Get, Put, Provide, Query} from '@midwayjs/decorator';
 import { Context } from 'egg';
 import { IGetUserResponse } from '../interface';
 import { UserService } from '../service/user';
+// import * as DB from '../service/findDB';
+import { TodoListService } from '../service/findDB';
 
-export const todoList = []
 
 @Provide()
 @Controller('/api')
 export class APIController {
-  @Inject()
+  @Inject('ctx')
   ctx: Context;
+
+  // Inject 装饰器根据 TodolistService 这个 key 标记当前属性
+  // 当 HomeControoler 被实例化的时候，Midway 会从 IoC 容器中
+  // 找到 TodolistService 对应的 class 并 new 出来赋值给 this.db
+  @Inject()
+  db: TodoListService;
 
   @Inject()
   userService: UserService;
@@ -32,7 +41,8 @@ export class APIController {
   @Post('/todo')
   async addTodo() {
     const { text } = this.ctx.request.body
-    todoList.push(text);
+    console.log('text',text)
+    await this.db.add(text);
     // 重定向方法
     this.ctx.redirect('/');
     return 'ok'
@@ -40,11 +50,28 @@ export class APIController {
   // GET /api/todo
   @Get('/todo')
   async getTodo() {
-    return todoList
+    return await this.db.list();
   }
-  
-  @Get('/todo')
+
+  // DELETE /api/todo/delete
+  // curl locahost:6001/apis/todo/1234 -> id:1234
+  @Del('/todo/:id')
   async deleteTodo() {
-    return todoList
+    // const text = this.ctx.query.text;
+    const { id } = this.ctx.params;// form 表单 GET 提交时 name="text" 的 input 中的数据
+    await this.db.del(Number(id));
+    // 跳转到 HTML 页面
+    // this.ctx.redirect('/');
+  }
+
+
+  // PUT /api/todo
+  @Put('/todo/:id')
+  async putTodo() {
+    const { id } = this.ctx.params;
+    const { text } = this.ctx.request.body;
+    // console.log("oldText, newText",oldText, newText)
+    // this.db.update(id.trim(), newText)
+    await this.db.update(Number(id), text)
   }
 }

@@ -1,0 +1,76 @@
+<!--
+ * @Author: 1151309124 115130924@qq.com
+ * @Date: 2022-05-13 00:35:08
+ * @LastEditors: 1151309124 115130924@qq.com
+ * @LastEditTime: 2022-05-22 17:55:39
+ * @FilePath: \leetcodee:\vs CODE\笔记\midway\todo-list\src\app\view\home.ejs
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+-->
+
+<!-- view -->
+
+EJS 模板渲染(file)
+<form action="/api/todo" method="POST">
+    <input name="text" /><button>确定</button>
+</form>
+
+<ul>
+    <!-- list:todoList -->
+    <% list.forEach(function(item) { %>
+        <li>
+            <span onclick="showUpdateInput(this.parentElement)">
+                <%= item %>
+            </span>
+            <!-- onblur 事件失去焦点触发 -->
+            <input onblur="saveUpdateInput('<%= item %>',this.parentElement)" name="text" type="hidden" value="<%= item %>" />
+            <a href="javascript:void(0)" onclick="deleteTodo('<%= item %>')">删除</a>
+        </li>
+        <% }) %>
+</ul>
+<script>
+    // 修改
+    function showUpdateInput(li) {
+
+        // span隐藏
+        const item = li.querySelector('span')
+        item.style.display = 'none';
+
+        // input显示出来
+        const input = li.querySelector('input');
+        // input.style.display = 'none'
+        input.type = '';
+        input.focus()
+    }
+
+    // 保存
+    function saveUpdateInput(oldText, li) {
+        // 拿 newText
+        const input = li.querySelector('input');
+        const newText = input.value;
+
+        // PUT /api/todo
+        fetch("http://127.0.0.1:7001/api/todo?oldText=" + encodeURI(oldText) + "&newText=" + encodeURI(newText), {
+            "body": null,
+            "method": "PUT",        
+            // "mode": "cors",
+            // "credentials": "omit"
+        }).then(() => {
+            // 重新渲染一下当前的页面
+            location.href = location.href;
+        });
+    }
+
+    // 删除
+    function deleteTodo(text) {
+        // DELETE /api/todo
+        fetch("http://127.0.0.1:7001/api/todo?text=" + encodeURI(text), {
+            "body": null,
+            "method": "DELETE",
+            // "mode": "cors",
+            // "credentials": "omit"
+        }).then(() => {
+            // 重新渲染一下当前的页面
+            location.href = location.href;
+        });
+    }
+</script>

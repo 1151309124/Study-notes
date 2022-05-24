@@ -2,11 +2,11 @@
  * @Author: 1151309124 115130924@qq.com
  * @Date: 2022-01-15 21:53:22
  * @LastEditors: 1151309124 115130924@qq.com
- * @LastEditTime: 2022-05-08 16:12:01
+ * @LastEditTime: 2022-05-24 16:51:02
  * @FilePath: \leetcodee:\vs CODE\midway\README.md
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
-吗npm init midway --type=web hello-world
+npm init midway --type=web hello-world
 
 
 ## Static 创建
@@ -42,3 +42,16 @@ node_module -> egg-static-> config->config.default.js
 curl "http://127.0.0.1:7001/api/todo" 
   -H "Content-Type: application/x-www-form-urlencoded" 
   --data-raw "text=^%^E4^%^BB^%^8A^%^E5^%^A4^%^A9^%^E5^%^A4^%^A9^%^E6^%^B0^%^94^%^E5^%^A5^%^BD^%^E5^%^A5^%^BD" 
+
+
+
+简单的文件持久化
+文件系统接口
+fs.writeFileSync(文件地址, 文本内容) 向文件地址写入文本内容(必须是字符串or二进制数据)
+fs.readFileSync(文件地址) 读取文件地址的文本数据（返回值是二进制数据 Buffer 类型）
+fs.existsSync(文件地址) 判断地址文件是否存在，返回 true/false 的布尔值
+
+
+JSON 编码
+JSON.parse(文本) 将文本字符串解析成 JavaScript 对象
+JSON.stringify(对象) 将 JavaScript 对象序列化成字符串文本
