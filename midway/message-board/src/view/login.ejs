@@ -1,0 +1,21 @@
+<!--
+ * @Author: 1151309124 115130924@qq.com
+ * @Date: 2022-05-25 15:40:08
+ * @LastEditors: 1151309124 115130924@qq.com
+ * @LastEditTime: 2022-05-30 22:59:59
+ * @FilePath: \leetcodee:\vs CODE\笔记\midway\message-board\src\view\login.ejs
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+-->
+
+<style>
+    input{
+        margin-top: 5px;
+        margin-left: 5px;
+    }
+</style>
+<h1>用户登录</h1>
+<form action="/user/login" method="post">
+    用户名 <input name="username"/><br/>
+    密码 <input name="password" type="password"/><br/>
+    <button>登录</button><a href="/register">注册</a>
+</form>
