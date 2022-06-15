@@ -2,7 +2,7 @@
  * @Author: 1151309124 115130924@qq.com
  * @Date: 2022-05-10 11:57:32
  * @LastEditors: 1151309124 115130924@qq.com
- * @LastEditTime: 2022-05-24 00:16:18
+ * @LastEditTime: 2022-05-24 18:20:58
  * @FilePath: \leetcodee:\vs CODE\笔记\midway\todo-list\src\controller\api.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -13,7 +13,7 @@ import { Context } from 'egg';
 import { IGetUserResponse } from '../interface';
 import { UserService } from '../service/user';
 // import * as DB from '../service/findDB';
-import { TodoListService } from '../service/findDB';
+import { TodoListService } from '../service/fileDB';
 
 
 @Provide()
