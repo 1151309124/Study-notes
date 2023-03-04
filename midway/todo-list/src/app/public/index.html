@@ -1,18 +1,16 @@
 <!-- 
  * @Author: 1151309124 115130924@qq.com
  * @Date: 2022-05-07 22:51:23
- * @LastEditors: 1151309124 115130924@qq.com
- * @LastEditTime: 2022-05-24 00:35:10
+ * @LastEditors: 1151309124 1151309124@qq.com
+ * @LastEditTime: 2023-03-03 15:55:54
  * @FilePath: \leetcodee:\vs CODE\midway\todo-list\src\app\public\index.html
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
-hello html
 <!-- https://developer.mozilla.org/zh-CN/docs/Learn -->
-
+前端渲染
 <div>
     <input id="addTodoText" /><button onclick="onClickAddTodo()">确定</button>
 </div>
-</form>
 
 <ul id="todolist">
 
@@ -34,6 +32,7 @@ hello html
         const res = await fetch("http://127.0.0.1:7001/api/todo")
         const list = await res.json()
         // list = {"id":1,"text":"今天要学数学"}
+        console.log(list);
         renderList(list);
     }
 
@@ -82,7 +81,7 @@ hello html
             html += `
             <li>
             <span onclick="showUpdateInput(this.parentElement)">${item.text}</span>
-            <input onblur="saveUpdateInput('${item.id }',this.parentElement)" name="text" type="hidden" value="${item.text}" />
+            <input onblur="saveUpdateInput('${item.id}',this.parentElement)" name="text" type="hidden" value="${item.text}" />
             <a href="javascript:void(0)" onclick="deleteTodo('${item.id}')">删除</a>
             </li>
             `

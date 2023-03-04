@@ -1,8 +1,8 @@
 /*
  * @Author: 1151309124 115130924@qq.com
  * @Date: 2022-05-11 15:59:35
- * @LastEditors: 1151309124 115130924@qq.com
- * @LastEditTime: 2022-05-24 00:14:27
+ * @LastEditors: 1151309124 1151309124@qq.com
+ * @LastEditTime: 2023-03-03 20:37:59
  * @FilePath: \leetcodee:\vs CODE\笔记\midway\todo-list\src\service\findDB.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -21,7 +21,7 @@ export interface ITodo {
 }
 
 
-@Scope(ScopeEnum.Singleton)
+@Scope(ScopeEnum.Singleton)//单例只被new一次
 @Provide('TodoListService')
 export class TodoListService {
     // TS写法
@@ -31,6 +31,8 @@ export class TodoListService {
     //     this.todoList = [];
     // }
     async list() {
+        // console.log('调用了list');
+        
         // fs.existsSync(文件地址) 判断地址文件是否存在，
         // 返回 true/false 的布尔值
         if (existsSync('./cache')) {
@@ -44,6 +46,8 @@ export class TodoListService {
                     resolve(data)
                 }))
             this.todoList = JSON.parse(buffer.toString())
+            console.log(this.todoList);
+            
         }
         return this.todoList;
     }
@@ -69,10 +73,11 @@ export class TodoListService {
     async del(id: number) {
         const list = await this.list()
         const idx = list.findIndex((item) => item.id === id);
-        list.splice(idx, 1)
+        const delObj= list.splice(idx, 1)
+        console.log('删除', delObj)
         await await this.flushCache(list);
     }
-
+    // 更新数据
     async update(id: number, newText: string) {
         const list = await this.list();
         // console.log("oldText, newText", oldText, newText);
@@ -85,7 +90,7 @@ export class TodoListService {
             await this.flushCache(list);
         }
     }
-
+// 获取id
     private async incrId() {
         const list = await this.list();
         let maxId = 0;

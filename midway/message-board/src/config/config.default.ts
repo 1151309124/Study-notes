@@ -1,8 +1,8 @@
 /*
  * @Author: 1151309124 115130924@qq.com
  * @Date: 2022-05-24 16:50:39
- * @LastEditors: 1151309124 115130924@qq.com
- * @LastEditTime: 2022-05-29 22:36:00
+ * @LastEditors: 1151309124 1151309124@qq.com
+ * @LastEditTime: 2023-03-03 23:56:18
  * @FilePath: \leetcodee:\vs CODE\笔记\midway\message-board\src\config\config.default.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -37,7 +37,7 @@ export default (appInfo: EggAppInfo) => {
      */
     // 转化为mysql数据
     type: 'mysql',
-    host: '127.0.0.1',
+    host: '127.0.0.1',//指向本机
     port: 3306,
     username: 'root',
     password: '123456',

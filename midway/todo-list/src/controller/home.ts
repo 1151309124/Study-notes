@@ -1,8 +1,8 @@
 /*
  * @Author: 1151309124 115130924@qq.com
  * @Date: 2022-05-06 19:52:36
- * @LastEditors: 1151309124 115130924@qq.com
- * @LastEditTime: 2022-05-24 00:34:28
+ * @LastEditors: 1151309124 1151309124@qq.com
+ * @LastEditTime: 2023-02-25 15:06:02
  * @FilePath: \leetcodee:\vs CODE\midway\todo-list\src\controller\home.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -26,7 +26,7 @@ export class HomeController {
   // GET /
   @Get('/')
   async home() {
-    // 告诉浏览器，当前返回 HTML 页面
+    // 告诉浏览器，当前返回 HTML 页面，流浪器通过content type识别内容
     this.ctx.type = 'html';
     const todoList =await this.db.list();
     return  this.renderService.render({

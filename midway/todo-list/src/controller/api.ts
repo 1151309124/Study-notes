@@ -1,8 +1,8 @@
 /*
  * @Author: 1151309124 115130924@qq.com
  * @Date: 2022-05-10 11:57:32
- * @LastEditors: 1151309124 115130924@qq.com
- * @LastEditTime: 2022-05-24 18:20:58
+ * @LastEditors: 1151309124 1151309124@qq.com
+ * @LastEditTime: 2023-03-03 20:42:16
  * @FilePath: \leetcodee:\vs CODE\笔记\midway\todo-list\src\controller\api.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -12,7 +12,7 @@ import { Inject, Controller, Post, Del, Get, Put, Provide, Query} from '@midwayj
 import { Context } from 'egg';
 import { IGetUserResponse } from '../interface';
 import { UserService } from '../service/user';
-// import * as DB from '../service/findDB';
+// import * as DB from '../service/findDB'; //把findDB写成DB
 import { TodoListService } from '../service/fileDB';
 
 
@@ -40,8 +40,9 @@ export class APIController {
   // POST /api/todo
   @Post('/todo')
   async addTodo() {
-    const { text } = this.ctx.request.body
-    console.log('text',text)
+    const { text } = this.ctx.request.body //浏览器请求接口通过request获取
+    // [ { id: 1, text: '001' }, { id: 2, text: '002' } ]
+    // console.log('text',text)
     await this.db.add(text);
     // 重定向方法
     this.ctx.redirect('/');
@@ -57,8 +58,10 @@ export class APIController {
   // curl locahost:6001/apis/todo/1234 -> id:1234
   @Del('/todo/:id')
   async deleteTodo() {
+    console.log('访问接口？');
+    
     // const text = this.ctx.query.text;
-    const { id } = this.ctx.params;// form 表单 GET 提交时 name="text" 的 input 中的数据
+    const { id } = this.ctx.params;//  form 表单 GET 提交时 name="text" 的 input 中的数据
     await this.db.del(Number(id));
     // 跳转到 HTML 页面
     // this.ctx.redirect('/');
@@ -66,6 +69,7 @@ export class APIController {
 
 
   // PUT /api/todo
+  // 保存修改接口
   @Put('/todo/:id')
   async putTodo() {
     const { id } = this.ctx.params;
